@@ -1,0 +1,6 @@
+com\esprit\microservices\gestionreservation\ReservationRestAPI.class
+com\esprit\microservices\gestionreservation\GestionReservationApplication.class
+com\esprit\microservices\gestionreservation\ReservationService.class
+com\esprit\microservices\gestionreservation\Reservation.class
+com\esprit\microservices\gestionreservation\ReservationRepository.class
+com\esprit\microservices\gestionreservation\CorsConfig.class
