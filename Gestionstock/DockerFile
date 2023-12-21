@@ -1,0 +1,5 @@
+FROM openjdk:17
+EXPOSE 8106
+ADD target/Gestionstock-0.0.1-SNAPSHOT.jar Gestionstock-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java", "-jar", "Gestionstock-0.0.1-SNAPSHOT.jar"]
+

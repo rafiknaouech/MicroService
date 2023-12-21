@@ -1,0 +1,156 @@
+
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Ajouter Stock</h4>
+                        <p class="card-category">Complete les champs de Stock</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="Reservation.prix" matInput placeholder=" nomProduit" >
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="Reservation.duree" matInput placeholder="quantiteEnStock">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="Reservation.dateDebut" matInput placeholder="quantiteMinimale" >
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                             
+                            
+                            <button (click)="ajout()" mat-raised-button type="submit" class="btn btn-danger pull-right">Ajouter Stock</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                   
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <input [(ngModel)]="searchedReservationId" type="number" placeholder="Rechercher par ID">
+  <button (click)="getReservationDetails()">Rechercher</button>
+  
+  
+  
+  
+  
+  
+  <div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Edit Stock</h4>
+                        <p class="card-category">Complete les champs du stock</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="Reservation.prix"  matInput placeholder="nomProduit" >
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="Reservation.duree"  matInput placeholder="quantiteEnStock">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="Reservation.dateDebut"  matInput placeholder="quantiteMinimale" >
+                                    </mat-form-field>
+                                </div>
+                           
+                            </div>
+                            <button (click)="updateReservation()" mat-raised-button type="submit" class="btn btn-danger pull-right">Update stock</button>
+                            <div class="clearfix"></div>
+                            <button  (click)="deleteReservation()"  mat-raised-button type="submit" class="btn btn-danger pull-right">Effacer Stock</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="main-content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card">
+                      <div class="card-header card-header-danger">
+                          <h4 class="card-title ">Table stock</h4>
+                          <p class="card-category"> </p>
+                      </div>
+                      <div class="card-body">
+                          <div class="table-responsive">
+                              <table class="table">
+                                  <thead class=" text-primary">
+                                      <th>
+                                          ID
+                                      </th>
+                                      <th>
+                                          NameProduit
+                                      </th>
+                                      <th>
+                                        quantiteEnStock
+                                      </th>
+                                      <th>
+                                        quantiteMinimale
+                                      </th>
+                                      
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                        <li *ngFor="let Reservation of reservations">
+                                          <td>
+                                            {{ Reservation.prix }} 
+                                          </td>
+                                          
+                                          <td>
+                                            {{ Reservation.duree }} 
+                                          </td>
+                                         
+                                         
+                                         </li>
+                                      </tr>
+                                
+                               

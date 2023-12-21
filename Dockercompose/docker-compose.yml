@@ -1,0 +1,135 @@
+version: "3.8"
+services:
+  EurekaServer:
+    container_name: EurekaServer
+    build: .\DiscoveryServer
+    ports:
+      - "8761:8761"
+    hostname: EurekaServer
+    image: "eureka"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://EurekaServer:8761/eureka/
+
+  Gateway:
+    image: "gateway"
+    container_name: Gateway
+    build: .\GateWay
+    hostname: Gateway
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://EurekaServer:8761/eureka/
+    ports:
+      - "8087:8081"
+    depends_on:
+      - EurekaServer
+
+  Gestionstock:
+    build: .\Gestionstock
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://EurekaServer:8761/eureka/
+    ports:
+      - "8107:8107"
+    image: "stockk"
+    depends_on:
+      - EurekaServer
+
+
+  Reservation:
+      build: .\Gestion-Reservation
+      environment:
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://EurekaServer:8761/eureka/
+      ports:
+        - "8080:8080"
+      image: "reservation"
+      depends_on:
+        - EurekaServer
+
+
+  Personel:
+    build: .\Personel
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://EurekaServer:8761/eureka/
+    ports:
+      - "8091:8091"
+    image: "personel"
+    depends_on:
+      - EurekaServer
+
+  Reclamation:
+      build: .\Reclamation
+      container_name: Reclamation
+      environment:
+        - SPRING_DATASOURCE_URL=jdbc:mysql://db1_mysql:3306/springmicro?useUnicode=true&useJDBCCompliantTimezoneShift=true&createDatabaseIfNotExist=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        - SPRING_DATASOURCE_USERNAME=root
+        - SPRING_DATASOURCE_PASSWORD=
+        - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+        - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://EurekaServer:8761/eureka/
+      ports:
+        - "8083:8083"
+      image: "reclamation"
+      depends_on:
+        - EurekaServer
+
+
+  docker-mysql_1:
+        image: "mysql:5.6"
+        container_name: db1_mysql
+        environment:
+          - MYSQL_ROOT_PASSWORD=
+          - MYSQL_DATABASE=springmicro
+          - MYSQL_PASSWORD=
+          - MYSQL_ALLOW_EMPTY_PASSWORD=true
+        ports:
+          - "3307:3306"
+
+  GestionCommande:
+    build: .\gestioncommande
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://EurekaServer:8761/eureka/
+    ports:
+      - "8089:8089"
+    image: "commande"
+    depends_on:
+      - EurekaServer
+
+  livraisonNode:
+    build: .\livraisonNode
+    ports:
+      - "4000:4000"
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/livraison # Update this line
+      - EUREKA_DEFAULTZONE=EurekaServer
+      - EUREKA_PORT=8761
+      - HOSTNAME=livraisonnode
+      - PORT=4000
+    image: "micronode"
+    depends_on:
+      - EurekaServer
+      - mongodb
+
+  Authentification:
+    build: .\Authentification1
+    ports:
+      - "8087:8087"
+    environment:
+      - MONGODB_URL=mongodb://localhost:3306/Auth?useUnicode=true&useJDBCCompliantTimezoneShift=true&createDatabaseIfNotExist=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - EUREKA_DEFAULTZONE=EurekaServer
+      - EUREKA_PORT=8761
+      - HOSTNAME=Auth
+      - PORT=8087
+    image: "authentification"
+    depends_on:
+      - EurekaServer
+
+
+  mongodb:
+     image: "mongo:latest"
+     ports:
+        - "27018:27017"
+     volumes:
+        - mongodb_data:/data/db
+volumes:
+   mongodb_data:
+     driver: local
+
+
+
